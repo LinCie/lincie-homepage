@@ -1,0 +1,19 @@
+---
+interface Props {
+	tag?: "div" | "article" | "aside" | "section";
+	tilt?: "left" | "right" | "none";
+	class?: string;
+}
+
+const {
+	tag: Tag = "div",
+	tilt = "none",
+	class: className = "",
+} = Astro.props;
+
+const tiltClass = tilt === "left" ? "tilt-left" : tilt === "right" ? "tilt-right" : "";
+---
+
+<Tag class:list={["organic-card", tiltClass, className]}>
+	<slot />
+</Tag>

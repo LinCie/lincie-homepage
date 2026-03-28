@@ -1,0 +1,128 @@
+---
+interface Props {
+	class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`flower ${className}`}>
+	<div class="flower__sway">
+		<div class="flower__bloom">
+			{[...Array(6)].map((_, i) => (
+				<div
+					class="flower__petal"
+					style={`transform: rotate(${i * 60}deg) translateY(-28px);`}
+				/>
+			))}
+			<div class="flower__center" />
+		</div>
+	</div>
+	<div class="flower__stem" />
+	<div class="flower__leaf flower__leaf--left" />
+	<div class="flower__leaf flower__leaf--right" />
+</div>
+
+<style>
+	.flower {
+		--petal-size: 30px;
+		--center-size: 18px;
+		--stem-height: 60px;
+		--sway-speed: 4s;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 80px;
+		height: calc(var(--stem-height) + 80px);
+	}
+
+	.flower__sway {
+		animation: sway var(--sway-speed) ease-in-out infinite;
+		transform-origin: bottom center;
+		z-index: 1;
+	}
+
+	.flower__bloom {
+		position: relative;
+		width: 70px;
+		height: 70px;
+	}
+
+	.flower__petal {
+		position: absolute;
+		width: var(--petal-size);
+		height: var(--petal-size);
+		background-color: var(--color-flower);
+		border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+		top: 50%;
+		left: 50%;
+		margin-left: calc(var(--petal-size) / -2);
+		margin-top: calc(var(--petal-size) / -2);
+		opacity: var(--color-flower-opacity, 0.85);
+		transition: background-color 1.5s ease, transform 0.3s ease, opacity 1.5s ease;
+	}
+
+	.flower__center {
+		position: absolute;
+		width: var(--center-size);
+		height: var(--center-size);
+		background-color: var(--color-flower-center);
+		border-radius: 50%;
+		top: 50%;
+		left: 50%;
+		margin-left: calc(var(--center-size) / -2);
+		margin-top: calc(var(--center-size) / -2);
+		z-index: 1;
+		transition: background-color 1.5s ease;
+	}
+
+	.flower__stem {
+		width: 3px;
+		height: var(--stem-height);
+		background-color: var(--color-leaf, #6dcc7b);
+		border-radius: 2px;
+		margin-top: 4px;
+	}
+
+	.flower__leaf {
+		position: absolute;
+		width: 22px;
+		height: 11px;
+		background-color: var(--color-leaf, #6dcc7b);
+		border-radius: 0 50% 50% 0;
+		top: calc(80px + 25px);
+		opacity: 0.8;
+		transition: background-color 1.5s ease;
+	}
+
+	.flower__leaf--left {
+		left: 32px;
+		transform: rotate(-30deg);
+		border-radius: 50% 0 0 50%;
+	}
+
+	.flower__leaf--right {
+		right: 32px;
+		transform: rotate(30deg);
+	}
+
+	.flower:hover .flower__petal {
+		opacity: 1;
+		transform-origin: center center;
+	}
+
+	.flower:hover .flower__sway {
+		animation-duration: 2.5s;
+	}
+
+	@keyframes sway {
+		0%,
+		100% {
+			transform: rotate(-3deg);
+		}
+		50% {
+			transform: rotate(3deg);
+		}
+	}
+</style>
