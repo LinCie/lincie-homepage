@@ -5,70 +5,291 @@ import OrganicCard from "../components/OrganicCard.astro";
 ---
 
 <Layout title="About — LinCie">
-	<section class="garden-container" aria-label="About">
+	<section class="cottage" aria-label="About">
 		<BackLink />
-		<h1 class="font-heading text-5xl sm:text-6xl mt-6 mb-4" style="color: var(--color-heading)">
-			About Me
-		</h1>
-		<div class="organic-divider my-6" />
 
-		<div class="about-content">
-			<p class="text-lg mb-4" style="color: var(--color-text); line-height: 1.8;">
-				Hi there! I'm LinCie — someone who believes the internet should feel warmer.
-				I build things on the web that I hope make people smile, even if just a little.
+		<div class="cottage__entrance">
+			<h1 class="cottage__greeting font-heading text-3xl sm:text-4xl mt-8 mb-2" style="color: var(--color-heading)">
+				hello, you found my room
+			</h1>
+			<p class="cottage__intro text-lg" style="color: var(--color-text); line-height: 1.9;">
+				I'm LinCie — someone who smiles easy and moves gently through the world.
+				I believe the internet should feel warmer, so I built this little garden
+				and left the door open.
 			</p>
-			<p class="mb-6" style="color: var(--color-muted); line-height: 1.8;">
-				I like slow mornings, handwritten letters, and the way gardens look right after rain.
-				I think good design is the kind you barely notice — it just feels right, like a well-worn path.
-			</p>
+		</div>
 
-			<div class="about-highlights">
-				<OrganicCard tilt="left" class="about-highlight">
-					<h2 class="font-heading text-xl mb-1" style="color: var(--color-heading)">
-						What I Do
-					</h2>
-					<p class="text-sm" style="color: var(--color-muted)">
-						I design and build websites and small applications. I care about craft, accessibility, and making things that feel genuinely human.
+		<div class="organic-divider my-10" role="separator" aria-hidden="true" />
+
+		<div class="cottage__character">
+			<OrganicCard tilt="left" tag="article" class="cottage__trait">
+				<h2 class="font-heading text-xl mb-2" style="color: var(--color-heading)">
+					gentle, but unbending
+				</h2>
+				<p class="text-sm" style="color: var(--color-muted); line-height: 1.8;">
+					I don't give up on the things I care about. I don't do things the normal way
+					either — I tend to my garden, not someone else's blueprint.
+				</p>
+			</OrganicCard>
+
+			<OrganicCard tilt="none" tag="article" class="cottage__trait cottage__trait--heart">
+				<h2 class="font-heading text-xl mb-2" style="color: var(--color-heading)">
+					just a child who yearns
+				</h2>
+				<p class="text-sm" style="color: var(--color-muted); line-height: 1.8;">
+					Underneath everything, I'm someone who wants to connect.
+					Not perform, not impress, not prove — just connect.
+					This garden exists because of that.
+				</p>
+			</OrganicCard>
+
+			<OrganicCard tilt="left" tag="article" class="cottage__trait">
+				<h2 class="font-heading text-xl mb-2" style="color: var(--color-heading)">
+					the one who stayed
+				</h2>
+				<p class="text-sm" style="color: var(--color-muted); line-height: 1.8;">
+					I stay. I don't quit. The garden keeps growing because I keep tending it —
+					season after season, morning after morning.
+				</p>
+			</OrganicCard>
+		</div>
+
+		<div class="cottage__bridge my-12">
+			<p class="cottage__bridge-text font-heading text-base" style="color: var(--color-muted); line-height: 1.8;">
+				and these are the things that keep me company along the way.
+			</p>
+		</div>
+
+		<div class="cottage__table">
+			<h2 class="font-heading text-2xl mb-6" style="color: var(--color-heading)">
+				things on my table
+			</h2>
+			<div class="cottage__collection">
+				<OrganicCard tilt="none" tag="article" class="cottage__item">
+					<h3 class="font-heading text-lg mb-1" style="color: var(--color-heading)">shows</h3>
+					<p class="text-sm" style="color: var(--color-muted); line-height: 1.7;">
+						I have this shelf of iyashikei — Yuru Camp, Non Non Biyori, Aria.
+						They're the kind of stories where nothing dramatic happens, and that's
+						exactly why I love them. When the world gets too loud, I go there.
+						They don't ask anything of me. They just let me be small for a while.
 					</p>
 				</OrganicCard>
-				<OrganicCard tilt="right" class="about-highlight">
-					<h2 class="font-heading text-xl mb-1" style="color: var(--color-heading)">
-						What I Love
-					</h2>
-					<p class="text-sm" style="color: var(--color-muted)">
-						Clean code, quiet afternoons, good typography, and projects that start with "wouldn't it be nice if..."
+				<OrganicCard tilt="right" tag="article" class="cottage__item">
+					<h3 class="font-heading text-lg mb-1" style="color: var(--color-heading)">music</h3>
+					<p class="text-sm" style="color: var(--color-muted); line-height: 1.7;">
+						Akira Kosemura's piano sounds like the moment after rain stops.
+						Haruka Nakamura writes the spaces between words.
+						And then there's Ujico, a_hisa — artcore that rushes in all at once
+						like it missed me. I need both. The stillness and the storm.
+						They're how I feel what I can't say.
+					</p>
+				</OrganicCard>
+				<OrganicCard tilt="left" tag="article" class="cottage__item">
+					<h3 class="font-heading text-lg mb-1" style="color: var(--color-heading)">games</h3>
+					<p class="text-sm" style="color: var(--color-muted); line-height: 1.7;">
+						Blue Archive stole months of my life and I'd let it do it again.
+						Don't ask me to explain it.
+						And osu! — just circles and music, but sometimes that's exactly enough.
+						Something so simple my mind finally goes quiet.
+						They don't belong together. They belong to me.
 					</p>
 				</OrganicCard>
 			</div>
+		</div>
 
-			<div class="organic-divider my-8" />
+		<div class="organic-divider my-10" role="separator" aria-hidden="true" />
 
-			<p style="color: var(--color-muted); font-style: italic; line-height: 1.7;">
-				Thanks for stopping by my little garden. I hope it made your day a tiny bit softer.
+		<div class="cottage__window">
+			<p class="cottage__kindness font-heading text-lg" style="color: var(--color-muted); line-height: 1.9;">
+				people see gentle and assume simple.<br />
+				see soft and assume weak.<br />
+				<span style="color: var(--color-heading)">the garden tells a different story.</span>
 			</p>
+		</div>
+
+		<div class="organic-divider my-10" role="separator" aria-hidden="true" />
+
+		<div class="cottage__bottom" id="cottage-bottom">
+			<p class="cottage__reveal font-heading text-2xl" style="color: var(--color-accent); line-height: 1.7;" aria-hidden="true">
+				you did great.
+			</p>
+		</div>
+
+		<div class="cottage__window-frame">
+			<div class="cottage__window-glass" aria-hidden="true"></div>
+			<nav class="cottage__window-nav" aria-label="Return to garden">
+				<a href="/" class="back-link">
+					&larr; back to the garden
+				</a>
+			</nav>
 		</div>
 	</section>
 </Layout>
 
-<style>
-	.about-content {
-		max-width: 36rem;
+<script is:inline data-astro-rerun>
+	function initReveal() {
+		const bottom = document.getElementById('cottage-bottom');
+		if (!bottom) return;
+		if (bottom.classList.contains('cottage__bottom--visible')) return;
+		const reveal = bottom.querySelector('[aria-hidden]');
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					bottom.classList.add('cottage__bottom--visible');
+					if (reveal) reveal.removeAttribute('aria-hidden');
+					observer.disconnect();
+				}
+			},
+			{ threshold: 0.5 }
+		);
+		observer.observe(bottom);
 	}
 
-	.about-highlights {
+	document.addEventListener('astro:page-load', initReveal);
+	initReveal();
+</script>
+
+<style>
+	.cottage {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 1rem 1.5rem 4rem;
+	}
+
+	.cottage__entrance,
+	.cottage__character,
+	.cottage__table,
+	.cottage__window,
+	.cottage__bottom {
+		max-width: 36rem;
+		width: 100%;
+	}
+
+	.cottage__greeting {
+		text-transform: lowercase;
+	}
+
+	.cottage__character {
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		margin-block: 2rem;
 	}
 
-	.about-highlight {
+	.cottage__trait {
+		max-width: 26rem;
+		align-self: center;
+	}
+
+	.cottage__trait--heart {
+		max-width: 30rem;
+		background-color: color-mix(in srgb, var(--color-accent) 6%, var(--color-surface));
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+		padding-block: clamp(1.5rem, 4vw, 2.25rem);
+	}
+
+	.cottage__bridge {
+		text-align: center;
+		max-width: 28rem;
+	}
+
+	.cottage__bridge-text {
+		text-transform: lowercase;
+		opacity: 0.75;
+	}
+
+	.cottage__collection {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.cottage__item {
 		max-width: 24rem;
 	}
 
+	.cottage__kindness {
+		text-align: center;
+		text-transform: lowercase;
+	}
+
+	.cottage__bottom {
+		text-align: center;
+		padding-block: 1rem;
+	}
+
+	.cottage__reveal {
+		opacity: 0;
+		transform: translateY(0.5rem);
+		transition: opacity 1.2s ease, transform 1.2s ease;
+	}
+
+	.cottage__bottom--visible .cottage__reveal {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.cottage__window-frame {
+		margin-top: 2.5rem;
+		width: 100%;
+		max-width: 20rem;
+		border-radius: var(--radius-soft) var(--radius-soft) 0 0;
+		border: 2px solid var(--color-accent);
+		border-bottom: 4px solid var(--color-accent);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cottage__window-glass {
+		height: 6rem;
+		background: linear-gradient(
+			180deg,
+			var(--color-sky) 0%,
+			var(--color-surface) 100%
+		);
+		opacity: 0.3;
+	}
+
+	.cottage__window-nav {
+		padding: 1.25rem;
+		display: flex;
+		justify-content: center;
+		background: var(--color-surface);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cottage__reveal {
+			transition: none;
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@media (min-width: 30rem) {
+		.cottage__trait--heart {
+			align-self: center;
+		}
+
+		.cottage__trait:not(.cottage__trait--heart):nth-child(odd) {
+			align-self: flex-start;
+		}
+
+		.cottage__trait:not(.cottage__trait--heart):nth-child(even) {
+			align-self: flex-end;
+		}
+	}
+
 	@media (min-width: 40rem) {
-		.about-highlights {
+		.cottage__collection {
 			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 1.5rem;
+		}
+
+		.cottage__item {
+			flex: 1 1 12rem;
+			max-width: 16rem;
 		}
 	}
 </style>
