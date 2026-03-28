@@ -19,28 +19,104 @@ import OrganicCard from "../components/OrganicCard.astro";
 		</div>
 	</section>
 
-	<section class="garden-container" aria-label="Explore">
-		<div class="garden-row garden-row--spread">
-			<a href="/about" class="flex-1 min-w-[14rem] no-underline">
-				<OrganicCard tilt="left">
-					<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
-						About
+	<nav class="garden-container" aria-label="Explore the garden">
+		<p class="explore-invite font-heading text-xl sm:text-2xl" style="color: var(--color-muted)">
+			Where would you like to wander?
+		</p>
+		<div class="explore-garden">
+			<a href="/portfolio" class="explore-card explore-card--primary no-underline">
+				<OrganicCard class="greenhouse-card">
+					<h2 class="font-heading text-3xl sm:text-4xl mb-3" style="color: var(--color-heading)">
+						My Greenhouse
 					</h2>
-					<p class="text-sm" style="color: var(--color-muted)">
-						A little story about me, planted here with care.
-					</p>
-				</OrganicCard>
-			</a>
-			<a href="/portfolio" class="flex-1 min-w-[14rem] mt-6 sm:mt-0 no-underline">
-				<OrganicCard tilt="right">
-					<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
-						Portfolio
-					</h2>
-					<p class="text-sm" style="color: var(--color-muted)">
+					<p style="color: var(--color-muted)">
 						Things I've grown and nurtured along the way.
 					</p>
 				</OrganicCard>
 			</a>
+			<div class="explore-secondary">
+				<a href="/about" class="explore-card no-underline">
+					<OrganicCard tilt="left">
+						<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
+							About
+						</h2>
+						<p class="text-sm" style="color: var(--color-muted)">
+							A little story about me, planted here with care.
+						</p>
+					</OrganicCard>
+				</a>
+				<a href="/contact" class="explore-card no-underline">
+					<OrganicCard tilt="right">
+						<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
+							Say Hello
+						</h2>
+						<p class="text-sm" style="color: var(--color-muted)">
+							Drop me a note — I'd love to hear from you.
+						</p>
+					</OrganicCard>
+				</a>
+			</div>
 		</div>
-	</section>
+	</nav>
 </Layout>
+
+<style>
+	.explore-invite {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.explore-garden {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.explore-secondary {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.explore-card {
+		width: 100%;
+		max-width: 24rem;
+	}
+
+	.explore-card--primary {
+		max-width: 28rem;
+	}
+
+	.greenhouse-card {
+		padding: clamp(1.5rem, 4vw, 2.5rem);
+		border-left: 3px solid var(--color-accent);
+	}
+
+	@media (min-width: 40rem) {
+		.explore-garden {
+			flex-direction: row;
+			align-items: flex-start;
+			gap: var(--space-element);
+		}
+
+		.explore-secondary {
+			order: 1;
+			flex: 0 1 auto;
+		}
+
+	.explore-card:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+		border-radius: var(--radius-soft);
+	}
+
+	.explore-card--primary {
+			order: 2;
+			flex: 1 1 0;
+			max-width: 24rem;
+			margin-top: 1.5rem;
+		}
+	}
+</style>

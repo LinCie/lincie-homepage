@@ -1,0 +1,68 @@
+---
+import OrganicCard from "./OrganicCard.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	tags?: string[];
+	role?: string;
+	link?: string;
+	github?: string;
+	tilt?: "left" | "right" | "none";
+}
+
+const {
+	title,
+	description,
+	tags = [],
+	role,
+	link,
+	github,
+	tilt = "none",
+} = Astro.props;
+---
+
+<OrganicCard tag="article" tilt={tilt} class="project-card">
+	<h3 class="font-heading text-xl mb-1" style="color: var(--color-heading)">
+		{link
+			? <a href={link} target="_blank" rel="noopener noreferrer" class="project-card__title-link">{title}</a>
+			: title
+		}
+	</h3>
+	{role && <p class="text-sm mb-2" style="color: var(--color-accent-mid)">{role}</p>}
+	<p class="text-sm mb-3" style="color: var(--color-muted)">{description}</p>
+	<div class="flex flex-wrap gap-2">
+		{tags.map((tag) => (
+			<span class="project-card__tag">{tag}</span>
+		))}
+	</div>
+	{github && (
+		<p class="text-xs mt-3">
+			<a href={github} target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-mid); text-decoration: underline;">source code</a>
+		</p>
+	)}
+</OrganicCard>
+
+<style>
+	.project-card {
+		max-width: 28rem;
+	}
+
+	.project-card__title-link {
+		text-decoration: none;
+		color: inherit;
+		transition: color 0.3s ease;
+	}
+
+	.project-card__title-link:hover {
+		color: var(--color-accent);
+	}
+
+	.project-card__tag {
+		font-size: 0.75rem;
+		padding: 0.15rem 0.6rem;
+		border-radius: var(--radius-pill);
+		background-color: var(--color-accent-soft);
+		color: var(--color-muted);
+	}
+</style>

@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BackLink from "../components/BackLink.astro";
+import OrganicCard from "../components/OrganicCard.astro";
+---
+
+<Layout title="Contact — LinCie">
+	<section class="garden-container" aria-label="Contact">
+		<BackLink />
+		<h1 class="font-heading text-5xl sm:text-6xl mt-6 mb-4" style="color: var(--color-heading)">
+			Say Hello
+		</h1>
+		<div class="organic-divider my-6" />
+
+		<div class="contact-content">
+			<p class="text-lg mb-6" style="color: var(--color-muted); line-height: 1.8;">
+				I'd love to hear from you — whether it's about a project, a collaboration,
+				or just to say hi. I read every message, and I promise I'll write back.
+			</p>
+
+			<OrganicCard tilt="none" class="contact-card">
+				<h2 class="font-heading text-xl mb-3" style="color: var(--color-heading)">
+					Get in Touch
+				</h2>
+				<div class="contact-methods">
+					<a href="mailto:hello@example.com" class="contact-method">
+						<span class="contact-method__label">Email</span>
+						<span class="contact-method__value">hello@example.com</span>
+					</a>
+					<a href="https://github.com/lincie" target="_blank" rel="noopener noreferrer" class="contact-method">
+						<span class="contact-method__label">GitHub</span>
+						<span class="contact-method__value">github.com/lincie</span>
+					</a>
+				</div>
+			</OrganicCard>
+
+			<p class="mt-8 text-sm" style="color: var(--color-muted); font-style: italic;">
+				Leave a note at the garden gate. I'll find it.
+			</p>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.contact-content {
+		max-width: 28rem;
+	}
+
+	.contact-card {
+		max-width: 100%;
+	}
+
+	.contact-methods {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.contact-method {
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		padding: 0.75rem;
+		border-radius: var(--radius-soft);
+		min-height: 2.75rem;
+		transition: background-color 0.3s ease;
+	}
+
+	.contact-method:hover {
+		background-color: var(--color-accent-soft);
+	}
+
+	.contact-method:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+
+	.contact-method__label {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--color-accent-mid);
+	}
+
+	.contact-method__value {
+		font-family: var(--font-body);
+		color: var(--color-text);
+	}
+</style>

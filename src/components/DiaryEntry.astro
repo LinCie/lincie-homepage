@@ -1,0 +1,41 @@
+---
+interface Props {
+	date: string;
+	title: string;
+	body: string;
+}
+
+const { date, title, body } = Astro.props;
+---
+
+<article class="diary-entry">
+	<time class="diary-entry__date" datetime={date} style="color: var(--color-accent-mid)">
+		{new Date(date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+	</time>
+	<h2 class="font-heading text-xl mt-1 mb-2" style="color: var(--color-heading)">
+		{title}
+	</h2>
+	<div class="diary-entry__body" style="color: var(--color-muted)">
+		<p>{body}</p>
+	</div>
+</article>
+
+<style>
+	.diary-entry {
+		padding-block: var(--space-element);
+		border-bottom: 1px solid var(--color-accent-soft);
+	}
+
+	.diary-entry:last-child {
+		border-bottom: none;
+	}
+
+	.diary-entry__date {
+		font-size: 0.85rem;
+		font-family: var(--font-body);
+	}
+
+	.diary-entry__body p {
+		line-height: 1.7;
+	}
+</style>

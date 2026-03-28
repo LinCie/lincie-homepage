@@ -1,0 +1,38 @@
+---
+interface Props {
+	href?: string;
+	label?: string;
+}
+
+const {
+	href = "/",
+	label = "back to the garden",
+} = Astro.props;
+---
+
+<a href={href} class="back-link">
+	&larr; {label}
+</a>
+
+<style>
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.75rem;
+		padding-inline: 0.25rem;
+		font-family: var(--font-body);
+		color: var(--color-muted);
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	.back-link:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+		border-radius: var(--radius-pill);
+	}
+</style>

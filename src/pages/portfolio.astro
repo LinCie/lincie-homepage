@@ -1,21 +1,57 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import BackLink from "../components/BackLink.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+
+const tilts: Array<"left" | "right" | "none"> = ["left", "right", "none"];
 ---
 
 <Layout title="Portfolio — LinCie">
 	<section class="garden-container" aria-label="Portfolio">
-		<a href="/" class="back-link" style="color: var(--color-muted); text-decoration: none;">
-			&larr; back to the garden
-		</a>
+		<BackLink />
 		<h1 class="font-heading text-5xl sm:text-6xl mt-6 mb-4" style="color: var(--color-heading)">
-			Portfolio
+			My Greenhouse
 		</h1>
 		<div class="organic-divider my-6" />
-		<p class="text-lg max-w-md" style="color: var(--color-muted)">
-			This greenhouse is still being built. Soon it will hold the projects I've grown and nurtured — each one a little seed that became something more.
+		<p class="text-lg max-w-lg mb-8" style="color: var(--color-muted)">
+			Projects I've planted, watered, and watched grow. Each one started as a tiny seed of an idea.
 		</p>
-		<p class="mt-4 max-w-md" style="color: var(--color-muted)">
-			Come back soon to see what's sprouting.
-		</p>
+
+		<div class="portfolio-grid">
+			{projects.map((project, i) => (
+				<ProjectCard
+					title={project.title}
+					description={project.description}
+					tags={project.tags}
+					role={project.role}
+					link={project.link}
+					github={project.github}
+					tilt={tilts[i % tilts.length]}
+				/>
+			))}
+		</div>
 	</section>
 </Layout>
+
+<style>
+	.portfolio-grid {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-element);
+		align-items: center;
+	}
+
+	@media (min-width: 48rem) {
+		.portfolio-grid {
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.portfolio-grid > :global(*) {
+			flex: 1 1 20rem;
+			max-width: 28rem;
+		}
+	}
+</style>

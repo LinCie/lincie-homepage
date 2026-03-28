@@ -2,6 +2,7 @@
 import "../styles/global.css";
 
 import caveatFontUrl from "@fontsource-variable/caveat/files/caveat-latin-wght-normal.woff2?url";
+import GardenNav from "../components/GardenNav.astro";
 
 interface Props {
 	title?: string;
@@ -34,10 +35,15 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 			import "../scripts/seasonal-particles.ts";
 		</script>
 		<main id="main-content" style="flex: 1;">
+			<GardenNav />
 			<slot />
 		</main>
 		<footer class="garden-footer" style="color: var(--color-muted); text-align: center; padding-block: var(--space-element);">
 			<p class="text-sm">&mdash; LinCie's garden &mdash;</p>
+			<a href="/diary" class="secret-path" aria-label="A hidden path">
+				<span class="secret-path__leaf" aria-hidden="true">&#10047;</span>
+				<span class="secret-path__label">a hidden path...</span>
+			</a>
 		</footer>
 	</body>
 </html>
@@ -112,5 +118,45 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 		background-color: var(--color-accent);
 		border-radius: 2px;
 		opacity: 0.5;
+	}
+
+	.secret-path {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin-top: 0.5rem;
+		font-size: 0.7rem;
+		color: var(--color-muted);
+		opacity: 0.6;
+		text-decoration: none;
+		padding: 0.75rem 1rem;
+		margin-left: -1rem;
+		border-radius: var(--radius-pill);
+		min-height: 2.75rem;
+		transition: opacity 0.5s ease, color 0.3s ease, background-color 0.3s ease;
+	}
+
+	.secret-path:hover {
+		opacity: 1;
+		color: var(--color-accent);
+		background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+	}
+
+	.secret-path:focus-visible {
+		opacity: 1;
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+
+	.secret-path__leaf {
+		font-size: 0.85rem;
+		opacity: 0.7;
+		animation: secret-gentle-sway 4s ease-in-out infinite;
+	}
+
+	@keyframes secret-gentle-sway {
+		0%, 100% { transform: rotate(0deg); }
+		25% { transform: rotate(5deg); }
+		75% { transform: rotate(-5deg); }
 	}
 </style>
