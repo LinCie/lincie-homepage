@@ -36,8 +36,8 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 			import "../scripts/world.ts";
 			import "../scripts/seasonal-particles.ts";
 		</script>
-		<main id="main-content" style="flex: 1;">
-			<GardenNav />
+		<GardenNav />
+		<main id="main-content" class="transition-garden" style="flex: 1;">
 			<slot />
 		</main>
 		<footer class="garden-footer" style="color: var(--color-muted); text-align: center; padding-block: var(--space-element);">
@@ -161,5 +161,22 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 		0%, 100% { transform: rotate(0deg); }
 		25% { transform: rotate(5deg); }
 		75% { transform: rotate(-5deg); }
+	}
+
+	html.is-changing .transition-garden {
+		transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	html.is-animating .transition-garden {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html.is-changing .transition-garden {
+			transition: none;
+		}
 	}
 </style>
