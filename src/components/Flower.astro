@@ -12,7 +12,7 @@ const { class: className = "" } = Astro.props;
 			{[...Array(6)].map((_, i) => (
 				<div
 					class="flower__petal"
-					style={`transform: rotate(${i * 60}deg) translateY(-28px);`}
+					style={`--petal-rotation: ${i * 60}deg;`}
 				/>
 			))}
 			<div class="flower__center" />
@@ -25,10 +25,10 @@ const { class: className = "" } = Astro.props;
 
 <style>
 	.flower {
-		--petal-size: 30px;
+		--petal-size: var(--flower-petal-size, 30px);
 		--center-size: 18px;
 		--stem-height: 60px;
-		--sway-speed: 4s;
+		--sway-speed: var(--flower-sway-speed, 4s);
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -47,6 +47,8 @@ const { class: className = "" } = Astro.props;
 		position: relative;
 		width: 70px;
 		height: 70px;
+		transform: rotate(var(--flower-bloom-rotate, 0deg));
+		transition: transform 1.5s ease;
 	}
 
 	.flower__petal {
@@ -59,8 +61,10 @@ const { class: className = "" } = Astro.props;
 		left: 50%;
 		margin-left: calc(var(--petal-size) / -2);
 		margin-top: calc(var(--petal-size) / -2);
+		--petal-distance: var(--flower-petal-distance, 28px);
+		transform: rotate(var(--petal-rotation)) translateY(calc(-1 * var(--petal-distance)));
 		opacity: var(--color-flower-opacity, 0.85);
-		transition: background-color 1.5s ease, transform 0.3s ease, opacity 1.5s ease;
+		transition: background-color 1.5s ease, transform 0.4s ease, opacity 0.4s ease, width 1.5s ease, height 1.5s ease;
 	}
 
 	.flower__center {
@@ -109,7 +113,7 @@ const { class: className = "" } = Astro.props;
 
 	.flower:hover .flower__petal {
 		opacity: 1;
-		transform-origin: center center;
+		--petal-distance: calc(var(--flower-petal-distance, 28px) + 8px);
 	}
 
 	.flower:hover .flower__sway {

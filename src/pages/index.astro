@@ -5,7 +5,7 @@ import OrganicCard from "../components/OrganicCard.astro";
 ---
 
 <Layout>
-	<section class="flex flex-col items-center justify-center min-h-[80dvh] text-center">
+	<section class="flex flex-col items-center justify-center min-h-[80dvh] text-center" aria-label="Introduction">
 		<Flower class="mb-6 scale-125 sm:scale-150" />
 		<h1 class="font-heading text-5xl sm:text-6xl" style="color: var(--color-heading)">
 			Hello, I'm LinCie
@@ -14,29 +14,33 @@ import OrganicCard from "../components/OrganicCard.astro";
 		<p class="text-lg max-w-md" style="color: var(--color-muted)">
 			Welcome to my little corner of the internet.
 		</p>
-		<div class="mt-8 px-4 py-2 rounded-full" style="background-color: var(--color-accent-soft)">
-			<span class="text-sm" style="color: var(--color-accent-mid)">a garden in progress</span>
+		<div class="mt-8 px-4 py-2" style="background-color: var(--color-accent-soft); border-radius: var(--radius-pill)">
+			<span class="text-sm" style="color: var(--color-muted)">a garden in progress</span>
 		</div>
 	</section>
 
-	<section class="garden-container">
+	<section class="garden-container" aria-label="Explore">
 		<div class="garden-row garden-row--spread">
-			<OrganicCard tilt="left" class="flex-1 min-w-[14rem]">
-				<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
-					About
-				</h2>
-				<p class="text-sm" style="color: var(--color-muted)">
-					A little story about me, planted here with care.
-				</p>
-			</OrganicCard>
-			<OrganicCard tilt="right" class="flex-1 min-w-[14rem] mt-6 sm:mt-0">
-				<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
-					Portfolio
-				</h2>
-				<p class="text-sm" style="color: var(--color-muted)">
-					Things I've grown and nurtured along the way.
-				</p>
-			</OrganicCard>
+			<a href="/about" class="flex-1 min-w-[14rem] no-underline">
+				<OrganicCard tilt="left">
+					<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
+						About
+					</h2>
+					<p class="text-sm" style="color: var(--color-muted)">
+						A little story about me, planted here with care.
+					</p>
+				</OrganicCard>
+			</a>
+			<a href="/portfolio" class="flex-1 min-w-[14rem] mt-6 sm:mt-0 no-underline">
+				<OrganicCard tilt="right">
+					<h2 class="font-heading text-2xl mb-2" style="color: var(--color-heading)">
+						Portfolio
+					</h2>
+					<p class="text-sm" style="color: var(--color-muted)">
+						Things I've grown and nurtured along the way.
+					</p>
+				</OrganicCard>
+			</a>
 		</div>
 	</section>
 </Layout>

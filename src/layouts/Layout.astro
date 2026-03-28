@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 
+import caveatFontUrl from "@fontsource-variable/caveat/files/caveat-latin-wght-normal.woff2?url";
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -15,21 +17,47 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, viewport-fit=cover" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
+		<link rel="preload" href={caveatFontUrl} as="font" type="font/woff2" crossorigin />
+		<script is:inline>
+			(function(){var h=new Date().getHours(),t='night';if(h>=5&&h<12)t='morning';else if(h>=12&&h<17)t='afternoon';else if(h>=17&&h<21)t='evening';document.documentElement.setAttribute('data-time',t);var m=new Date().getMonth(),s='winter';if(m>=2&&m<=4)s='spring';else if(m>=5&&m<=7)s='summer';else if(m>=8&&m<=10)s='autumn';document.documentElement.setAttribute('data-season',s)})();
+		</script>
 	</head>
 	<body class="font-body">
+		<a class="skip-link" href="#main-content">Skip to content</a>
 		<script>
 			import "../scripts/time-of-day.ts";
 			import "../scripts/season.ts";
 		</script>
-		<slot />
+		<main id="main-content" style="flex: 1;">
+			<slot />
+		</main>
+		<footer class="garden-footer" style="color: var(--color-muted); text-align: center; padding-block: var(--space-element);">
+			<p class="text-sm">&mdash; LinCie's garden &mdash;</p>
+		</footer>
 	</body>
 </html>
 
 <style is:global>
+	.skip-link {
+		position: absolute;
+		inset-inline-start: -9999px;
+		padding: 0.5rem 1rem;
+		background-color: var(--color-surface);
+		color: var(--color-text);
+		z-index: 100;
+		border-radius: var(--radius-soft);
+		font-family: var(--font-body);
+	}
+
+	.skip-link:focus {
+		inset-inline-start: 1rem;
+		inset-block-start: 1rem;
+	}
+
 	body {
 		padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 	}
@@ -65,8 +93,15 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 	}
 
+	.tilt-left:hover {
+		transform: translateY(-3px) rotate(-2.5deg);
+	}
+
+	.tilt-right:hover {
+		transform: translateY(-3px) rotate(2.5deg);
+	}
+
 	.organic-card:hover {
-		transform: translateY(-3px) rotate(-0.5deg);
 		box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
 	}
 
