@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+User-agent: *
+Disallow: /diary
+
+Sitemap: https://lincie.me/sitemap-index.xml

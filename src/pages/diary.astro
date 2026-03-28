@@ -5,7 +5,11 @@ import DiaryEntry from "../components/DiaryEntry.astro";
 import { diaryEntries } from "../data/diary";
 ---
 
-<Layout title="Secret Garden — LinCie">
+<Layout
+	title="Secret Garden — LinCie"
+	description="A quiet place for thoughts that don't fit anywhere else."
+	noindex={true}
+>
 	<section class="garden-container" aria-label="Diary">
 		<BackLink />
 		<h1 class="font-heading text-5xl sm:text-6xl mt-6 mb-4" style="color: var(--color-heading)">

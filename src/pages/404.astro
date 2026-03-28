@@ -3,7 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Flower from "../components/Flower.astro";
 ---
 
-<Layout title="Lost in the Garden — LinCie">
+<Layout
+	title="Lost in the Garden — LinCie"
+	description="This path doesn't seem to lead anywhere. Let's go back to the garden."
+	noindex={true}
+>
 	<section class="flex flex-col items-center justify-center min-h-[80dvh] text-center">
 		<div class="flower-404">
 			<Flower class="scale-100 sm:scale-110" />

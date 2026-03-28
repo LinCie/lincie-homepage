@@ -8,21 +8,72 @@ import TextureOverlay from "../components/TextureOverlay.astro";
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	noindex?: boolean;
 }
 
-const { title = "LinCie", description = "A little corner of the internet" } = Astro.props;
+const {
+	title = "LinCie — A Little Corner of the Internet",
+	description = "Welcome to my living garden — a personal website that shifts with time of day and seasons. Hand-crafted with warmth and care.",
+	image = "https://lincie.me/og-image.png",
+	noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: "LinCie",
+	url: "https://lincie.me",
+	email: "contact@lincie.me",
+	sameAs: ["https://github.com/lincie"],
+	description: "Someone who smiles easy and moves gently through the world. Builder of living gardens on the internet.",
+};
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: "LinCie's Garden",
+	url: "https://lincie.me",
+	description: "A living garden that mirrors the real world across time of day and seasons — a warm, handmade personal website by LinCie.",
+};
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="viewport" content="width=device-width, viewport-fit=cover" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="theme-color" content="#b8e6d0" />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<link rel="canonical" href={canonicalURL.href} />
+
 		<title>{title}</title>
+
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL.href} />
+		<meta property="og:image" content={image} />
+		<meta property="og:site_name" content="LinCie's Garden" />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
+
+		{Astro.url.pathname === "/" && (
+			<>
+				<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+				<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+			</>
+		)}
+
 		<link rel="preload" href={caveatFontUrl} as="font" type="font/woff2" crossorigin />
 		<script is:inline>
 			(function(){var h=new Date().getHours(),t='night';if(h>=5&&h<12)t='morning';else if(h>=12&&h<17)t='afternoon';else if(h>=17&&h<21)t='evening';document.documentElement.setAttribute('data-time',t);var m=new Date().getMonth(),s='winter';if(m>=2&&m<=4)s='spring';else if(m>=5&&m<=7)s='summer';else if(m>=8&&m<=10)s='autumn';document.documentElement.setAttribute('data-season',s)})();
