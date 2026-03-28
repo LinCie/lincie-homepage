@@ -3,6 +3,7 @@ import "../styles/global.css";
 
 import caveatFontUrl from "@fontsource-variable/caveat/files/caveat-latin-wght-normal.woff2?url";
 import GardenNav from "../components/GardenNav.astro";
+import TextureOverlay from "../components/TextureOverlay.astro";
 
 interface Props {
 	title?: string;
@@ -30,6 +31,7 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 	<body class="font-body">
 		<a class="skip-link" href="#main-content">Skip to content</a>
 		<canvas id="season-particles" class="season-particles" aria-hidden="true"></canvas>
+		<TextureOverlay />
 		<script>
 			import "../scripts/world.ts";
 			import "../scripts/seasonal-particles.ts";
@@ -96,7 +98,7 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 		background-color: var(--color-surface);
 		border-radius: var(--radius-soft);
 		padding: clamp(1.25rem, 3vw, 2rem);
-		transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 1.5s ease;
+		transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 1.5s ease;
 		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 	}
 
@@ -152,6 +154,7 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 		font-size: 0.85rem;
 		opacity: 0.7;
 		animation: secret-gentle-sway 4s ease-in-out infinite;
+		will-change: transform;
 	}
 
 	@keyframes secret-gentle-sway {

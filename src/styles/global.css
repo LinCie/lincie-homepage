@@ -12,6 +12,7 @@
 	--space-section: clamp(4rem, 8vw, 8rem);
 	--space-element: clamp(1.5rem, 3vw, 3rem);
 	--max-width: 48rem;
+	--texture-opacity: 0.03;
 }
 
 :root,
@@ -177,10 +178,6 @@ section {
 	transform: rotate(1.5deg);
 }
 
-.float {
-	animation: float 6s ease-in-out infinite;
-}
-
 .season-particles {
 	position: fixed;
 	inset: 0;
@@ -190,17 +187,15 @@ section {
 	z-index: 0;
 }
 
-@keyframes float {
-	0%, 100% { transform: translateY(0); }
-	50% { transform: translateY(-6px); }
-}
-
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
 	*::after {
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
+	}
+
+	*:not(body):not(h1):not(h2):not(h3):not(p):not(span):not(a):not(.organic-divider):not(.skip-link):not(.organic-card) {
 		transition-duration: 0.01ms !important;
 	}
 }
