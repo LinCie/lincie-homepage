@@ -16,58 +16,63 @@
 
 :root,
 [data-time="morning"] {
-	--color-bg: #f0faf5;
-	--color-surface: #dff5ea;
-	--color-text: #1e3a2a;
-	--color-heading: #143d25;
-	--color-accent: #5ee8a0;
-	--color-accent-soft: rgba(94, 232, 160, 0.15);
-	--color-accent-mid: #3dcc80;
-	--color-muted: #527662;
-	--color-sky: #ecfdf5;
+	--time-bg: #f0faf5;
+	--time-surface: #dff5ea;
+	--time-text: #1e3a2a;
+	--time-heading: #143d25;
+	--time-accent: #5ee8a0;
+	--time-accent-soft: rgba(94, 232, 160, 0.15);
+	--time-accent-mid: #3dcc80;
+	--time-muted: #527662;
 }
 
 [data-time="afternoon"] {
-	--color-bg: #faf6f0;
-	--color-surface: #f5ede0;
-	--color-text: #3a2e1e;
-	--color-heading: #4a3520;
-	--color-accent: #8ecf7e;
-	--color-accent-soft: rgba(142, 207, 126, 0.15);
-	--color-accent-mid: #6eb85e;
-	--color-muted: #7b6c4c;
-	--color-sky: #fefce8;
+	--time-bg: #faf6f0;
+	--time-surface: #f5ede0;
+	--time-text: #3a2e1e;
+	--time-heading: #4a3520;
+	--time-accent: #8ecf7e;
+	--time-accent-soft: rgba(142, 207, 126, 0.15);
+	--time-accent-mid: #6eb85e;
+	--time-muted: #7b6c4c;
 }
 
 [data-time="evening"] {
-	--color-bg: #f5ecf2;
-	--color-surface: #eddaea;
-	--color-text: #3a1e35;
-	--color-heading: #4a2045;
-	--color-accent: #c880a8;
-	--color-accent-soft: rgba(200, 128, 168, 0.15);
-	--color-accent-mid: #b06898;
-	--color-muted: #7d5570;
-	--color-sky: #fce8f4;
+	--time-bg: #f5ecf2;
+	--time-surface: #eddaea;
+	--time-text: #3a1e35;
+	--time-heading: #4a2045;
+	--time-accent: #c880a8;
+	--time-accent-soft: rgba(200, 128, 168, 0.15);
+	--time-accent-mid: #b06898;
+	--time-muted: #7d5570;
 }
 
 [data-time="night"] {
-	--color-bg: #e4eaf4;
-	--color-surface: #d4dce8;
-	--color-text: #1a2540;
-	--color-heading: #152035;
-	--color-accent: #7c93d4;
-	--color-accent-soft: rgba(124, 147, 212, 0.15);
-	--color-accent-mid: #6a7fc4;
-	--color-muted: #4a5c74;
-	--color-sky: #dce6f4;
+	--time-bg: #e4eaf4;
+	--time-surface: #d4dce8;
+	--time-text: #1a2540;
+	--time-heading: #152035;
+	--time-accent: #7c93d4;
+	--time-accent-soft: rgba(124, 147, 212, 0.15);
+	--time-accent-mid: #6a7fc4;
+	--time-muted: #4a5c74;
 }
 
 [data-season="spring"] {
+	--season-bg: #f0faf5;
+	--season-surface: #dff5ea;
+	--season-text: #1e3a2a;
+	--season-heading: #143d25;
+	--season-accent: #5ee8a0;
+	--season-accent-soft: rgba(94, 232, 160, 0.15);
+	--season-accent-mid: #3dcc80;
+	--season-muted: #527662;
 	--color-flower: #5ee8a0;
 	--color-flower-center: #fbbf24;
 	--color-flower-opacity: 0.85;
 	--color-leaf: #6dcc7b;
+	--particle-colors: #f9a8d4, #fbcfe8, #f0abfc, #d9f99d, #bbf7d0;
 	--flower-petal-distance: 28px;
 	--flower-petal-size: 30px;
 	--flower-sway-speed: 4s;
@@ -75,10 +80,19 @@
 }
 
 [data-season="summer"] {
+	--season-bg: #fef9f0;
+	--season-surface: #fdf0d8;
+	--season-text: #3a2e1a;
+	--season-heading: #4a3518;
+	--season-accent: #f0b860;
+	--season-accent-soft: rgba(240, 184, 96, 0.15);
+	--season-accent-mid: #e0a040;
+	--season-muted: #8a7a58;
 	--color-flower: #f9a8d4;
 	--color-flower-center: #fbbf24;
 	--color-flower-opacity: 0.95;
 	--color-leaf: #4ade80;
+	--particle-colors: #fde68a, #fcd34d, #fbbf24, #a3e635, #d9f99d;
 	--flower-petal-distance: 34px;
 	--flower-petal-size: 33px;
 	--flower-sway-speed: 3.5s;
@@ -86,10 +100,19 @@
 }
 
 [data-season="autumn"] {
+	--season-bg: #faf5ee;
+	--season-surface: #f3e8d8;
+	--season-text: #3a2a1a;
+	--season-heading: #4a3018;
+	--season-accent: #e89050;
+	--season-accent-soft: rgba(232, 144, 80, 0.15);
+	--season-accent-mid: #d07838;
+	--season-muted: #8a6e4c;
 	--color-flower: #f59e6b;
 	--color-flower-center: #d97706;
 	--color-flower-opacity: 0.7;
 	--color-leaf: #b8860b;
+	--particle-colors: #f59e6b, #d97706, #b45309, #ea580c, #f97316, #a16207;
 	--flower-petal-distance: 24px;
 	--flower-petal-size: 27px;
 	--flower-sway-speed: 5.5s;
@@ -97,14 +120,34 @@
 }
 
 [data-season="winter"] {
+	--season-bg: #f0f4f8;
+	--season-surface: #e2e8f0;
+	--season-text: #1e2a3a;
+	--season-heading: #182538;
+	--season-accent: #88a8cc;
+	--season-accent-soft: rgba(136, 168, 204, 0.15);
+	--season-accent-mid: #7098c0;
+	--season-muted: #5a7088;
 	--color-flower: #a0b8e0;
 	--color-flower-center: #e2e8f0;
 	--color-flower-opacity: 0.55;
 	--color-leaf: #94a3b8;
+	--particle-colors: #e2e8f0, #cbd5e1, #f1f5f9, #dbeafe, #c7d2fe;
 	--flower-petal-distance: 20px;
 	--flower-petal-size: 24px;
 	--flower-sway-speed: 7s;
 	--flower-bloom-rotate: -12deg;
+}
+
+:root {
+	--color-bg: color-mix(in oklch, var(--time-bg) 60%, var(--season-bg) 40%);
+	--color-surface: color-mix(in oklch, var(--time-surface) 60%, var(--season-surface) 40%);
+	--color-text: color-mix(in oklch, var(--time-text) 55%, var(--season-text) 45%);
+	--color-heading: color-mix(in oklch, var(--time-heading) 55%, var(--season-heading) 45%);
+	--color-accent: color-mix(in oklch, var(--time-accent) 55%, var(--season-accent) 45%);
+	--color-accent-soft: color-mix(in oklch, var(--time-accent-soft) 55%, var(--season-accent-soft) 45%);
+	--color-accent-mid: color-mix(in oklch, var(--time-accent-mid) 55%, var(--season-accent-mid) 45%);
+	--color-muted: color-mix(in oklch, var(--time-muted) 55%, var(--season-muted) 45%);
 }
 
 body,
@@ -136,6 +179,15 @@ section {
 
 .float {
 	animation: float 6s ease-in-out infinite;
+}
+
+.season-particles {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 0;
 }
 
 @keyframes float {

@@ -28,9 +28,10 @@ const { title = "LinCie", description = "A little corner of the internet" } = As
 	</head>
 	<body class="font-body">
 		<a class="skip-link" href="#main-content">Skip to content</a>
+		<canvas id="season-particles" class="season-particles" aria-hidden="true"></canvas>
 		<script>
-			import "../scripts/time-of-day.ts";
-			import "../scripts/season.ts";
+			import "../scripts/world.ts";
+			import "../scripts/seasonal-particles.ts";
 		</script>
 		<main id="main-content" style="flex: 1;">
 			<slot />

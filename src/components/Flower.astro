@@ -129,4 +129,90 @@ const { class: className = "" } = Astro.props;
 			transform: rotate(3deg);
 		}
 	}
+
+	[data-season="spring"] .flower__bloom {
+		animation: spring-bloom 6s ease-in-out infinite;
+	}
+
+	@keyframes spring-bloom {
+		0%,
+		100% {
+			transform: rotate(0deg) scale(1);
+		}
+		50% {
+			transform: rotate(2deg) scale(1.07);
+		}
+	}
+
+	[data-season="summer"] .flower__bloom {
+		animation: summer-full 7s ease-in-out infinite;
+	}
+
+	@keyframes summer-full {
+		0%,
+		100% {
+			transform: rotate(0deg) scale(1);
+		}
+		25% {
+			transform: rotate(3deg) scale(1.05);
+		}
+		75% {
+			transform: rotate(-2deg) scale(1.03);
+		}
+	}
+
+	[data-season="autumn"] .flower__bloom {
+		animation: autumn-sway 8s ease-in-out infinite;
+	}
+
+	@keyframes autumn-sway {
+		0%,
+		100% {
+			transform: rotate(-8deg) translateY(20px);
+		}
+		50% {
+			transform: rotate(-4deg) translateY(20px);
+		}
+	}
+
+	[data-season="autumn"] .flower__petal:nth-child(1) {
+		transform: rotate(calc(var(--petal-rotation) + 12deg)) translateY(calc(-1 * var(--petal-distance))) scale(0.9);
+	}
+
+	[data-season="autumn"] .flower__petal:nth-child(2) {
+		transform: rotate(calc(var(--petal-rotation) - 8deg)) translateY(calc(-1 * var(--petal-distance))) scale(0.95);
+	}
+
+	[data-season="autumn"] .flower__petal:nth-child(3) {
+		transform: rotate(calc(var(--petal-rotation) + 18deg)) translateY(calc(-1 * var(--petal-distance) + 5px)) scale(0.85);
+		opacity: calc(var(--color-flower-opacity) * 0.7);
+	}
+
+	[data-season="autumn"] .flower__petal:nth-child(4) {
+		transform: rotate(calc(var(--petal-rotation) - 15deg)) translateY(calc(-1 * var(--petal-distance) + 8px)) scale(0.8);
+		opacity: calc(var(--color-flower-opacity) * 0.55);
+	}
+
+	[data-season="autumn"] .flower__petal:nth-child(5) {
+		transform: rotate(calc(var(--petal-rotation) + 10deg)) translateY(calc(-1 * var(--petal-distance))) scale(0.92);
+	}
+
+	[data-season="autumn"] .flower__petal:nth-child(6) {
+		transform: rotate(calc(var(--petal-rotation) - 20deg)) translateY(calc(-1 * var(--petal-distance) + 4px)) scale(0.88);
+		opacity: calc(var(--color-flower-opacity) * 0.65);
+	}
+
+	[data-season="winter"] .flower__bloom {
+		animation: winter-rest 12s ease-in-out infinite;
+	}
+
+	@keyframes winter-rest {
+		0%,
+		100% {
+			transform: rotate(-12deg) scale(0.8) translateY(32px);
+		}
+		50% {
+			transform: rotate(-12deg) scale(0.84) translateY(32px);
+		}
+	}
 </style>
