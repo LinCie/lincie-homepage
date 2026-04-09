@@ -9,36 +9,47 @@ import OrganicCard from "../components/OrganicCard.astro";
 	description="Leave a note at the garden gate — I'd love to hear from you about projects, collaborations, or just to say hello."
 	breadcrumbs={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]}
 >
+	<canvas id="garden-canvas" class="garden-canvas"></canvas>
+
+	<svg class="svg-filters">
+		<filter id="organic-distortion">
+			<feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="2" result="noise" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="10" />
+		</filter>
+	</svg>
+
 	<section class="garden-container" aria-label="Contact">
 		<BackLink />
-		<h1 class="font-heading text-5xl sm:text-6xl mt-6 mb-4" style="color: var(--color-heading)">
+		<h1 class="font-heading text-5xl sm:text-6xl mt-6 mb-4 reveal-element" style="color: var(--color-heading)">
 			Say Hello
 		</h1>
-		<div class="organic-divider my-6" />
+		<div class="organic-divider my-6 reveal-element" />
 
 		<div class="contact-content">
-			<p class="text-lg mb-6" style="color: var(--color-muted); line-height: 1.8;">
+			<p class="text-lg mb-6 reveal-element" style="color: var(--color-muted); line-height: 1.8;">
 				I'd love to hear from you — whether it's about a project, a collaboration,
 				or just to say hi. I read every message, and I promise I'll write back.
 			</p>
 
-			<OrganicCard tilt="none" class="contact-card">
-				<h2 class="font-heading text-xl mb-3" style="color: var(--color-heading)">
-					Get in Touch
-				</h2>
-				<div class="contact-methods">
-					<a href="mailto:contact@lincie.me" class="contact-method">
-						<span class="contact-method__label">Email</span>
-						<span class="contact-method__value">contact@lincie.me</span>
-					</a>
-					<a href="https://github.com/lincie" target="_blank" rel="noopener noreferrer" class="contact-method">
-						<span class="contact-method__label">GitHub</span>
-						<span class="contact-method__value">github.com/lincie</span>
-					</a>
-				</div>
-			</OrganicCard>
+			<div class="card-spatial-wrapper reveal-element">
+				<OrganicCard tilt="none" class="contact-card overdrive-card">
+					<h2 class="font-heading text-xl mb-3" style="color: var(--color-heading)">
+						Get in Touch
+					</h2>
+					<div class="contact-methods">
+						<a href="mailto:contact@lincie.me" class="contact-method shimmer-link">
+							<span class="contact-method__label">Email</span>
+							<span class="contact-method__value">contact@lincie.me</span>
+						</a>
+						<a href="https://github.com/lincie" target="_blank" rel="noopener noreferrer" class="contact-method shimmer-link">
+							<span class="contact-method__label">GitHub</span>
+							<span class="contact-method__value">github.com/lincie</span>
+						</a>
+					</div>
+				</OrganicCard>
+			</div>
 
-			<p class="mt-8 text-sm" style="color: var(--color-muted); font-style: italic;">
+			<p class="mt-8 text-sm blooming-text" style="color: var(--color-muted); font-style: italic;">
 				Leave a note at the garden gate. I'll find it.
 			</p>
 		</div>
@@ -46,12 +57,42 @@ import OrganicCard from "../components/OrganicCard.astro";
 </Layout>
 
 <style>
+	@property --shimmer-pos {
+		syntax: '<percentage>';
+		inherits: false;
+		initial-value: 0%;
+	}
+
+	.garden-canvas {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: -1;
+		opacity: 0.6;
+	}
+
+	.svg-filters {
+		position: absolute;
+		width: 0;
+		height: 0;
+		pointer-events: none;
+	}
+
 	.contact-content {
 		max-width: 28rem;
 	}
 
+	.card-spatial-wrapper {
+		perspective: 1000px;
+	}
+
 	.contact-card {
 		max-width: 100%;
+		transition: transform 0.1s ease-out;
+		filter: url(#organic-distortion);
 	}
 
 	.contact-methods {
@@ -67,11 +108,14 @@ import OrganicCard from "../components/OrganicCard.astro";
 		padding: 0.75rem;
 		border-radius: var(--radius-soft);
 		min-height: 2.75rem;
-		transition: background-color 0.3s ease;
+		transition: background-color 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		position: relative;
+		overflow: hidden;
 	}
 
 	.contact-method:hover {
 		background-color: var(--color-accent-soft);
+		transform: scale(1.02) translateX(4px);
 	}
 
 	.contact-method:focus-visible {
@@ -89,5 +133,214 @@ import OrganicCard from "../components/OrganicCard.astro";
 	.contact-method__value {
 		font-family: var(--font-body);
 		color: var(--color-text);
+	}
+
+	/* Shimmer Effect */
+	.shimmer-link::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			color-mix(in srgb, var(--color-accent-soft), white 40%) at var(--shimmer-pos),
+			transparent
+		);
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.shimmer-link:hover::after {
+		opacity: 1;
+		animation: shimmer-move 2s infinite linear;
+	}
+
+	@keyframes shimmer-move {
+		from { --shimmer-pos: -20%; }
+		to { --shimmer-pos: 120%; }
+	}
+
+	/* Blooming Text */
+	.blooming-text {
+		clip-path: circle(0% at 50% 50%);
+		transition: clip-path 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.blooming-text.visible {
+		clip-path: circle(150% at 50% 50%);
+	}
+
+	/* Scroll-driven Animations */
+	@supports (animation-timeline: view()) {
+		.reveal-element {
+			animation: reveal-drift linear both;
+			animation-timeline: view();
+			animation-range: entry 5% cover 30%;
+		}
+	}
+
+	@keyframes reveal-drift {
+		from {
+			opacity: 0;
+			transform: translateY(30px) rotate(1deg);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) rotate(0deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.reveal-element, .blooming-text, .contact-method {
+			animation: none !important;
+			transition: none !important;
+			clip-path: none !important;
+			transform: none !important;
+		}
+	}
+</style>
+
+<script>
+	// 1. Generative Pollen Background
+	const canvas = document.getElementById('garden-canvas') as HTMLCanvasElement;
+	const ctx = canvas.getContext('2d');
+	let particles: Particle[] = [];
+
+	interface Particle {
+		x: number;
+		y: number;
+		size: number;
+		speedX: number;
+		speedY: number;
+		opacity: number;
+	}
+
+	function initCanvas() {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		particles = [];
+		for (let i = 0; i < 50; i++) {
+			particles.push({
+				x: Math.random() * canvas.width,
+				y: Math.random() * canvas.height,
+				size: Math.random() * 3 + 1,
+				speedX: (Math.random() - 0.5) * 0.5,
+				speedY: (Math.random() - 0.5) * 0.5,
+				opacity: Math.random() * 0.5 + 0.2
+			});
+		}
+	}
+
+	function animateCanvas() {
+		if (!ctx) return;
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
+		// Use accent color for pollen
+		const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim();
+		ctx.fillStyle = accentColor || '#a7f3d0';
+
+		particles.forEach(p => {
+			p.x += p.speedX;
+			p.y += p.speedY;
+
+			if (p.x < 0) p.x = canvas.width;
+			if (p.x > canvas.width) p.x = 0;
+			if (p.y < 0) p.y = canvas.height;
+			if (p.y > canvas.height) p.y = 0;
+
+			ctx.globalAlpha = p.opacity;
+			ctx.beginPath();
+			ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+			ctx.fill();
+		});
+		requestAnimationFrame(animateCanvas);
+	}
+
+	// 2. 3D Spatial Card Tracking
+	const card = document.querySelector('.overdrive-card') as HTMLElement;
+	const wrapper = card?.parentElement as HTMLElement;
+
+	if (card && wrapper) {
+		wrapper.addEventListener('mousemove', (e) => {
+			const rect = wrapper.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			const centerX = rect.width / 2;
+			const centerY = rect.height / 2;
+			const rotateX = (y - centerY) / 20;
+			const rotateY = (centerX - x) / 20;
+
+			card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+		});
+
+		wrapper.addEventListener('mouseleave', () => {
+			card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+		});
+	}
+
+	// 3. Blooming Text Observer
+	const bloomingText = document.querySelector('.blooming-text');
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				(entry.target as HTMLElement).classList.add('visible');
+			}
+		});
+	}, { threshold: 0.5 });
+
+	if (bloomingText) observer.observe(bloomingText);
+
+	// 4. Seed Particle Feedback on Click
+	document.querySelectorAll('.contact-method').forEach(link => {
+		link.addEventListener('click', (e) => {
+			const target = e.currentTarget as HTMLElement;
+			const rect = target.getBoundingClientRect();
+			
+			for (let i = 0; i < 12; i++) {
+				createSeed(rect.left + rect.width / 2, rect.top + rect.height / 2);
+			}
+		});
+	});
+
+	function createSeed(x: number, y: number) {
+		if (!ctx || !canvas) return;
+		const seed = document.createElement('div');
+		seed.className = 'seed-particle';
+		seed.style.left = `${x}px`;
+		seed.style.top = `${y}px`;
+		document.body.appendChild(seed);
+
+		const angle = Math.random() * Math.PI * 2;
+		const dist = Math.random() * 100 + 50;
+		const tx = Math.cos(angle) * dist;
+		const ty = Math.sin(angle) * dist;
+
+		seed.animate([
+			{ transform: 'translate(0, 0) scale(1)', opacity: 1 },
+			{ transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+		], {
+			duration: 800,
+			easing: 'cubic-bezier(0, .9, .57, 1)'
+		}).onfinish = () => seed.remove();
+	}
+
+	window.addEventListener('resize', initCanvas);
+	initCanvas();
+	animateCanvas();
+</script>
+
+<style is:global>
+	.seed-particle {
+		position: fixed;
+		width: 4px;
+		height: 4px;
+		background: var(--color-accent);
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 100;
 	}
 </style>
