@@ -9,8 +9,14 @@ import OrganicCard from "../components/OrganicCard.astro";
 	description="A warm room in the garden — who I am, what I love, and the stubborn gentleness that keeps me tending this little corner of the internet."
 >
 	<section class="cottage" aria-label="About">
-		<BackLink />
-
+		<div class="garden-vines" aria-hidden="true">
+			<svg class="vines-svg" viewBox="0 0 800 2000" preserveAspectRatio="xMidYMin slice">
+				<path class="vine-path vine-1" pathLength="1" d="M 400,0 Q 450,100 400,200 T 400,400 T 400,600 T 400,800 T 400,1000 T 400,1200 T 400,1400 T 400,1600 T 400,1800" />
+				<path class="vine-path vine-2" pathLength="1" d="M 200,100 Q 150,200 200,300 T 200,500 T 200,700 T 200,900 T 200,1100 T 200,1300" />
+				<path class="vine-path vine-3" pathLength="1" d="M 600,100 Q 650,200 600,300 T 600,500 T 600,700 T 600,900 T 600,1100 T 600,1300" />
+			</svg>
+		</div>
+		
 		<div class="cottage__entrance">
 			<h1 class="cottage__greeting font-heading text-3xl sm:text-4xl mt-8 mb-2" style="color: var(--color-heading)">
 				hello, you found my room
@@ -113,7 +119,7 @@ import OrganicCard from "../components/OrganicCard.astro";
 		<div class="organic-divider my-10" role="separator" aria-hidden="true" />
 
 		<div class="cottage__bottom" id="cottage-bottom">
-			<p class="cottage__reveal font-heading text-2xl" style="color: var(--color-accent); line-height: 1.7;" aria-hidden="true">
+			<p class="cottage__reveal font-heading text-2xl" style="color: var(--color-accent); line-height: 1.7;">
 				you did great.
 			</p>
 		</div>
@@ -129,35 +135,66 @@ import OrganicCard from "../components/OrganicCard.astro";
 	</section>
 </Layout>
 
-<script is:inline data-astro-rerun>
-	function initReveal() {
-		const bottom = document.getElementById('cottage-bottom');
-		if (!bottom) return;
-		if (bottom.classList.contains('cottage__bottom--visible')) return;
-		const reveal = bottom.querySelector('[aria-hidden]');
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting) {
-					bottom.classList.add('cottage__bottom--visible');
-					if (reveal) reveal.removeAttribute('aria-hidden');
-					observer.disconnect();
-				}
-			},
-			{ threshold: 0.5 }
-		);
-		observer.observe(bottom);
-	}
-
-	document.addEventListener('astro:page-load', initReveal);
-	initReveal();
-</script>
-
 <style>
 	.cottage {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		padding: 1rem 1.5rem 4rem;
+		position: relative;
+	}
+
+	.garden-vines {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		pointer-events: none;
+		opacity: 0.4;
+	}
+
+	.vines-svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.vine-path {
+		stroke: var(--color-accent);
+		stroke-width: 2;
+		fill: none;
+		stroke-linecap: round;
+		transition: stroke 0.5s ease;
+	}
+
+	.vine-1 {
+		stroke: color-mix(in srgb, var(--color-accent) 40%, var(--color-surface));
+	}
+
+	.vine-2 {
+		stroke: color-mix(in srgb, var(--color-accent) 20%, var(--color-surface));
+	}
+
+	.vine-3 {
+		stroke: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+	}
+
+	@keyframes grow {
+		from { stroke-dashoffset: 1; }
+		to { stroke-dashoffset: 0; }
+	}
+
+	@supports (animation-timeline: scroll()) {
+		.vine-path {
+			stroke-dasharray: 1;
+			stroke-dashoffset: 1;
+			animation: grow linear;
+			animation-timeline: scroll();
+		}
+		.vine-1 { animation-range: entry 0% exit 100%; }
+		.vine-2 { animation-range: entry 10% exit 80%; }
+		.vine-3 { animation-range: entry 20% exit 70%; }
 	}
 
 	.cottage__entrance,
@@ -222,12 +259,6 @@ import OrganicCard from "../components/OrganicCard.astro";
 	}
 
 	.cottage__reveal {
-		opacity: 0;
-		transform: translateY(0.5rem);
-		transition: opacity 1.2s ease, transform 1.2s ease;
-	}
-
-	.cottage__bottom--visible .cottage__reveal {
 		opacity: 1;
 		transform: translateY(0);
 	}

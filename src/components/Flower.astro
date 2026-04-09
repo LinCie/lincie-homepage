@@ -217,4 +217,18 @@ const { class: className = "" } = Astro.props;
 			transform: rotate(-12deg) scale(0.84) translateY(32px);
 		}
 	}
+
+	.flower__bloom {
+		animation: flower__bloom 4s ease-in-out infinite;
+	}
+
+	@keyframes flower__bloom {
+		0%,
+		100% {
+			scale: 1;
+		}
+		50% {
+			scale: 1.02;
+		}
+	}
 </style>

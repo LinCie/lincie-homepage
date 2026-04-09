@@ -10,7 +10,7 @@ export interface Project {
 
 export const projects: Project[] = [
 	{
-		slug: "lin-cie-website",
+		slug: "lincie-website",
 		title: "LinCie's Garden",
 		description: "A personal website built as a living garden that mirrors the real world across time of day and seasons. Hand-crafted with Astro and Tailwind CSS.",
 		tags: ["Astro", "Tailwind CSS", "TypeScript"],
@@ -29,9 +29,10 @@ export const projects: Project[] = [
 	{
 		slug: "bearuang",
 		title: "BearUang",
-		description: "A personal ERP system I'm pouring my heart into. Built with ElysiaJS on the backend and React on the frontend, because managing life's logistics deserves a cozy home too.",
-		tags: ["ElysiaJS", "React", "PostgreSQL", "MinIO"],
+		description: "A personal POS system I'm pouring my heart into. Built with ElysiaJS on the backend and React on the frontend, because managing life's logistics deserves a cozy home too.",
+		tags: ["ElysiaJS", "React", "PostgreSQL", "MinIO", "OpenAI"],
 		role: "Solo Developer",
+		link: "https://bearuang.lincie.me"
 	},
 	{
 		slug: "haebot-commerce",

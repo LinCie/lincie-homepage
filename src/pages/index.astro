@@ -8,7 +8,7 @@ import OrganicCard from "../components/OrganicCard.astro";
 	<section class="flex flex-col items-center justify-center min-h-[80dvh] text-center" aria-label="Introduction">
 		<Flower class="mb-6 scale-125 sm:scale-150" />
 		<h1 class="font-heading text-5xl sm:text-6xl" style="color: var(--color-heading)">
-			Hello, I'm LinCie
+			<span class="greeting-text">Hello</span>, I'm LinCie
 		</h1>
 		<div class="organic-divider my-6" />
 		<p class="text-lg max-w-md" style="color: var(--color-muted)">
@@ -60,6 +60,35 @@ import OrganicCard from "../components/OrganicCard.astro";
 	</nav>
 </Layout>
 
+<script>
+	const greetings: Record<string, string> = {
+		morning: 'Good morning',
+		afternoon: 'Good afternoon',
+		evening: 'Good evening',
+		night: 'Hello',
+	};
+
+	function updateGreeting() {
+		const time = document.documentElement.getAttribute('data-time') || 'morning';
+		const greetingEl = document.querySelector('.greeting-text');
+		if (greetingEl) {
+			greetingEl.textContent = greetings[time] || 'Hello';
+		}
+	}
+
+	updateGreeting();
+	document.documentElement.addEventListener('data-time-change', updateGreeting);
+
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			if (mutation.attributeName === 'data-time') {
+				updateGreeting();
+			}
+		});
+	});
+	observer.observe(document.documentElement, { attributes: true });
+</script>
+
 <style>
 	.explore-invite {
 		text-align: center;
@@ -92,6 +121,38 @@ import OrganicCard from "../components/OrganicCard.astro";
 	.greenhouse-card {
 		padding: clamp(1.5rem, 4vw, 2.5rem);
 		border-left: 3px solid var(--color-accent);
+	}
+
+	.greeting-text {
+		display: inline;
+		transition: opacity 0.8s ease;
+	}
+
+	.explore-card {
+		animation: card-grow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+	}
+
+	.explore-card:nth-child(1) {
+		animation-delay: 0.1s;
+	}
+
+	.explore-card:nth-child(2) {
+		animation-delay: 0.2s;
+	}
+
+	.explore-card:nth-child(3) {
+		animation-delay: 0.3s;
+	}
+
+	@keyframes card-grow {
+		from {
+			opacity: 0;
+			transform: scale(0.95);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
 	}
 
 	@media (min-width: 40rem) {

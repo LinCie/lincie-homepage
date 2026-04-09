@@ -187,6 +187,34 @@ section {
 	z-index: 0;
 }
 
+.seed-trail {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.seed-trail__seed {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	background-color: var(--color-accent);
+	border-radius: 50%;
+	opacity: 0.6;
+	animation: seed-fade 1.2s ease-out forwards;
+}
+
+@keyframes seed-fade {
+	0% {
+		opacity: 0.6;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0.3);
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
@@ -197,5 +225,9 @@ section {
 
 	*:not(body):not(h1):not(h2):not(h3):not(p):not(span):not(a):not(.organic-divider):not(.skip-link):not(.organic-card) {
 		transition-duration: 0.01ms !important;
+	}
+
+	.seed-trail {
+		display: none;
 	}
 }

@@ -1,3 +1,5 @@
+import { getCursor, isCursorActive } from "./meadow";
+
 type Season = "spring" | "summer" | "autumn" | "winter";
 
 interface Particle {
@@ -13,6 +15,19 @@ interface Particle {
   wobbleSpeed: number;
   wobbleAmplitude: number;
   color: string;
+}
+
+interface Firefly {
+  x: number;
+  y: number;
+  size: number;
+  speedY: number;
+  speedX: number;
+  opacity: number;
+  pulsePhase: number;
+  pulseSpeed: number;
+  life: number;
+  maxLife: number;
 }
 
 type SeasonConfig = {
@@ -181,6 +196,32 @@ function drawSnowflake(ctx: CanvasRenderingContext2D, p: Particle) {
   ctx.restore();
 }
 
+function drawFirefly(ctx: CanvasRenderingContext2D, f: Firefly) {
+  ctx.save();
+  ctx.translate(f.x, f.y);
+  
+  const pulse = Math.sin(f.pulsePhase) * 0.3 + 0.7;
+  const fadeOut = Math.max(0, 1 - f.life / f.maxLife);
+  ctx.globalAlpha = f.opacity * pulse * fadeOut;
+  
+  const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, f.size * 2);
+  gradient.addColorStop(0, 'rgba(255, 250, 200, 0.9)');
+  gradient.addColorStop(0.3, 'rgba(255, 240, 150, 0.5)');
+  gradient.addColorStop(1, 'transparent');
+  
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(0, 0, f.size * 2, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.fillStyle = 'rgba(255, 255, 220, 0.9)';
+  ctx.beginPath();
+  ctx.arc(0, 0, f.size * 0.4, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.restore();
+}
+
 function initParticles() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -195,8 +236,28 @@ function initParticles() {
   let season = readCurrentSeason();
   let config = SEASON_CONFIGS[season];
   let particles: Particle[] = [];
+  let fireflies: Firefly[] = [];
   let animationId: number;
   let running = false;
+  let lastFireflySpawn = 0;
+  const fireflySpawnInterval = 3000;
+
+  function createFirefly(): Firefly {
+    const x = rand(0, window.innerWidth);
+    const y = window.innerHeight + 20;
+    return {
+      x,
+      y,
+      size: rand(3, 6),
+      speedY: rand(-0.8, -0.3),
+      speedX: rand(-0.15, 0.15),
+      opacity: rand(0.5, 0.8),
+      pulsePhase: rand(0, Math.PI * 2),
+      pulseSpeed: rand(0.03, 0.06),
+      life: 0,
+      maxLife: rand(4000, 8000),
+    };
+  }
 
   function resize() {
     if (!canvas || !ctx) return;
@@ -239,6 +300,20 @@ function initParticles() {
     p.y += p.speedY;
     p.rotation += p.rotationSpeed;
 
+    if (isCursorActive()) {
+      const cursor = getCursor();
+      const dx = p.x - cursor.x;
+      const dy = p.y - cursor.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const scatterRadius = 80;
+
+      if (dist < scatterRadius && dist > 0) {
+        const force = (1 - dist / scatterRadius) * 2.5;
+        p.x += (dx / dist) * force;
+        p.y += (dy / dist) * force;
+      }
+    }
+
     if (season === "summer") {
       if (p.y < -20) {
         p.y = window.innerHeight + 10;
@@ -278,6 +353,23 @@ function initParticles() {
           break;
       }
     }
+
+    const now = performance.now();
+    if (now - lastFireflySpawn > fireflySpawnInterval && fireflies.length < 5) {
+      fireflies.push(createFirefly());
+      lastFireflySpawn = now;
+    }
+
+    for (const f of fireflies) {
+      f.x += f.speedX;
+      f.y += f.speedY;
+      f.pulsePhase += f.pulseSpeed;
+      f.life += 16.67;
+
+      drawFirefly(ctx, f);
+    }
+
+    fireflies = fireflies.filter(f => f.life < f.maxLife);
 
     animationId = requestAnimationFrame(draw);
   }
