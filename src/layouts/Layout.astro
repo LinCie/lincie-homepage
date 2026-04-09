@@ -5,39 +5,91 @@ import caveatFontUrl from "@fontsource-variable/caveat/files/caveat-latin-wght-n
 import GardenNav from "../components/GardenNav.astro";
 import TextureOverlay from "../components/TextureOverlay.astro";
 
+interface BreadcrumbItem {
+	name: string;
+	href: string;
+}
+
 interface Props {
 	title?: string;
 	description?: string;
 	image?: string;
 	noindex?: boolean;
+	breadcrumbs?: BreadcrumbItem[];
 }
 
+const siteName = "LinCie's Garden";
+const defaultTitle = "LinCie — A Little Corner of the Internet";
+
 const {
-	title = "LinCie — A Little Corner of the Internet",
+	title = defaultTitle,
 	description = "Welcome to my living garden — a personal website that shifts with time of day and seasons. Hand-crafted with warmth and care.",
 	image = "https://lincie.me/og-image.png",
 	noindex = false,
+	breadcrumbs = [],
 } = Astro.props;
+
+const pageTitle = title === defaultTitle ? title : `${title} | ${siteName}`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const personSchema = {
 	"@context": "https://schema.org",
 	"@type": "Person",
-	name: "LinCie",
+	name: "Aldio Fernanda",
+	alternateName: "LinCie",
 	url: "https://lincie.me",
 	email: "contact@lincie.me",
-	sameAs: ["https://github.com/lincie"],
+	jobTitle: "Full Stack Web Developer",
+	sameAs: [
+		"https://github.com/lincie",
+		"https://www.linkedin.com/in/aldiofernanda/",
+		"https://www.instagram.com/aldio_frd/",
+		"https://open.spotify.com/user/31oyxnawj25zik4xbwog3emhjsmi",
+	],
+	knowsAbout: [
+		"Astro", "TypeScript", "React", "Tailwind CSS",
+		"Node.js", "ElysiaJS", "PostgreSQL", "SQLite",
+		"Discord.js", "Lavalink", "MinIO",
+	],
 	description: "Someone who smiles easy and moves gently through the world. Builder of living gardens on the internet.",
 };
 
 const websiteSchema = {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
-	name: "LinCie's Garden",
+	name: siteName,
 	url: "https://lincie.me",
 	description: "A living garden that mirrors the real world across time of day and seasons — a warm, handmade personal website by LinCie.",
 };
+
+const webPageSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	name: pageTitle,
+	description: description,
+	url: canonicalURL.href,
+	isPartOf: {
+		"@type": "WebSite",
+		url: "https://lincie.me",
+		name: siteName,
+	},
+	about: {
+		"@type": "Person",
+		name: "Aldio Fernanda",
+	},
+};
+
+const breadcrumbSchema = breadcrumbs.length > 0 ? {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: breadcrumbs.map((item, i) => ({
+		"@type": "ListItem",
+		position: i + 1,
+		name: item.name,
+		item: new URL(item.href, Astro.site).href,
+	})),
+} : null;
 ---
 
 <!doctype html>
@@ -48,30 +100,39 @@ const websiteSchema = {
 		<meta name="viewport" content="width=device-width, viewport-fit=cover" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="author" content="Aldio Fernanda" />
 		<meta name="theme-color" content="#b8e6d0" />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<link rel="canonical" href={canonicalURL.href} />
+		<link rel="manifest" href="/site.webmanifest" />
 
-		<title>{title}</title>
+		<link rel="me" href="https://github.com/lincie" />
+		<link rel="me" href="https://www.linkedin.com/in/aldiofernanda/" />
+		<link rel="me" href="https://www.instagram.com/aldio_frd/" />
+		<link rel="me" href="https://open.spotify.com/user/31oyxnawj25zik4xbwog3emhjsmi" />
 
-		<meta property="og:title" content={title} />
+		<title>{pageTitle}</title>
+
+		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL.href} />
 		<meta property="og:image" content={image} />
-		<meta property="og:site_name" content="LinCie's Garden" />
+		<meta property="og:site_name" content={siteName} />
 		<meta property="og:locale" content="en_US" />
 
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
+		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={image} />
 
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 		{Astro.url.pathname === "/" && (
-			<>
-				<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-				<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-			</>
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+		)}
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+		{breadcrumbSchema && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 		)}
 
 		<link rel="preload" href={caveatFontUrl} as="font" type="font/woff2" crossorigin />

@@ -6,7 +6,7 @@ interface Props {
 const { class: className = "" } = Astro.props;
 ---
 
-<div class={`flower ${className}`}>
+<div class={`flower ${className}`} role="img" aria-label="A decorative flower that changes with the seasons">
 	<div class="flower__sway">
 		<div class="flower__bloom">
 			{[...Array(6)].map((_, i) => (

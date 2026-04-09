@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import BackLink from "../components/BackLink.astro";
 import OrganicCard from "../components/OrganicCard.astro";
 ---
 
 <Layout
 	title="About — LinCie"
 	description="A warm room in the garden — who I am, what I love, and the stubborn gentleness that keeps me tending this little corner of the internet."
+	breadcrumbs={[{ name: "Home", href: "/" }, { name: "About", href: "/about" }]}
 >
 	<section class="cottage" aria-label="About">
 		<div class="garden-vines" aria-hidden="true">

@@ -1,0 +1,16 @@
+{
+	"name": "LinCie's Garden",
+	"short_name": "LinCie",
+	"description": "A living garden that shifts with time of day and seasons.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#f0faf5",
+	"theme_color": "#b8e6d0",
+	"icons": [
+		{
+			"src": "/favicon.png",
+			"sizes": "any",
+			"type": "image/png"
+		}
+	]
+}
