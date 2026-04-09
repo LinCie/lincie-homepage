@@ -22,30 +22,112 @@ const {
 } = Astro.props;
 ---
 
-<OrganicCard tag="article" tilt={tilt} class="project-card">
-	<h3 class="font-heading text-xl mb-1" style="color: var(--color-heading)">
-		{link
-			? <a href={link} target="_blank" rel="noopener noreferrer" class="project-card__title-link">{title}</a>
-			: title
-		}
-	</h3>
-	{role && <p class="text-sm mb-2" style="color: var(--color-accent-mid)">{role}</p>}
-	<p class="text-sm mb-3" style="color: var(--color-muted)">{description}</p>
-	<div class="flex flex-wrap gap-2">
-		{tags.map((tag) => (
-			<span class="project-card__tag">{tag}</span>
-		))}
+<div class="project-card-wrapper bloom-reveal">
+	<div class="foliage-container">
+		<svg class="foliage-element foliage-leaf-1" viewBox="0 0 100 100" width="60" height="60">
+			<path d="M50 10 C60 30 90 40 90 60 C90 80 70 90 50 90 C30 90 10 80 10 60 C10 40 40 30 50 10" />
+		</svg>
+		<svg class="foliage-element foliage-leaf-2" viewBox="0 0 100 100" width="40" height="40">
+			<path d="M50 10 C60 30 90 40 90 60 C90 80 70 90 50 90 C30 90 10 80 10 60 C10 40 40 30 50 10" />
+		</svg>
+		<svg class="foliage-element foliage-leaf-3" viewBox="0 0 100 100" width="50" height="50">
+			<path d="M50 10 C60 30 90 40 90 60 C90 80 70 90 50 90 C30 90 10 80 10 60 C10 40 40 30 50 10" />
+		</svg>
 	</div>
-	{github && (
-		<p class="text-xs mt-3">
-			<a href={github} target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-mid); text-decoration: underline;">source code</a>
-		</p>
-	)}
-</OrganicCard>
+	<OrganicCard tag="article" tilt={tilt} class="project-card">
+		<h3 class="font-heading text-xl mb-1" style="color: var(--color-heading)">
+			{link
+				? <a href={link} target="_blank" rel="noopener noreferrer" class="project-card__title-link">{title}</a>
+				: title
+			}
+		</h3>
+		{role && <p class="text-sm mb-2" style="color: var(--color-accent-mid)">{role}</p>}
+		<p class="text-sm mb-3" style="color: var(--color-muted)">{description}</p>
+		<div class="flex flex-wrap gap-2">
+			{tags.map((tag) => (
+				<span class="project-card__tag">{tag}</span>
+			))}
+		</div>
+		{github && (
+			<p class="text-xs mt-3">
+				<a href={github} target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-mid); text-decoration: underline;">source code</a>
+			</p>
+		)}
+	</OrganicCard>
+</div>
+
+<script>
+	const initFoliage = () => {
+		const wrappers = document.querySelectorAll('.project-card-wrapper');
+		
+		wrappers.forEach(wrapper => {
+			const leaves = wrapper.querySelectorAll('.foliage-element');
+			
+			window.addEventListener('mousemove', (e) => {
+				const rect = wrapper.getBoundingClientRect();
+				const centerX = rect.left + rect.width / 2;
+				const centerY = rect.top + rect.height / 2;
+				
+				const dx = e.clientX - centerX;
+				const dy = e.clientY - centerY;
+				const dist = Math.sqrt(dx*dx + dy*dy);
+				const maxDist = 400;
+				
+				if (dist < maxDist) {
+					const power = (maxDist - dist) / maxDist;
+					leaves.forEach((leaf, i) => {
+						const offset = i * 0.5;
+						const rotateX = (dy / 10) * power;
+						const rotateY = (-dx / 10) * power;
+						leaf.style.transform = `rotateX(${rotateX + offset}deg) rotateY(${rotateY + offset}deg) scale(${1 + power * 0.2})`;
+					});
+				} else {
+					leaves.forEach(leaf => {
+						leaf.style.transform = '';
+					});
+				}
+			});
+		});
+	};
+
+	initFoliage();
+</script>
 
 <style>
+	.project-card-wrapper {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.foliage-container {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.foliage-leaf-1 {
+		top: -10px;
+		left: -20px;
+		transform: rotate(-20deg);
+	}
+
+	.foliage-leaf-2 {
+		bottom: -10px;
+		right: -20px;
+		transform: rotate(160deg);
+	}
+
+	.foliage-leaf-3 {
+		top: 50%;
+		right: -30px;
+		transform: translateY(-50%) rotate(90deg);
+	}
+
 	.project-card {
 		max-width: 28rem;
+		z-index: 1;
 	}
 
 	.project-card__title-link {
@@ -66,3 +148,4 @@ const {
 		color: var(--color-muted);
 	}
 </style>
+
